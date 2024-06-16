@@ -24,4 +24,8 @@ def incremental_backup_and_compress(source, dest):
     except Exception as e:
         print(f"An error occurred during the backup and compression process: {e}")
 
-incremental_backup_and_compress(source_dir, destination_dir)
+schedule.every().day.at("20:00").do(lambda: incremental_backup_and_compress(source_dir, destination_dir))
+
+while True:
+    schedule.run_pending()
+    time.sleep(60)
